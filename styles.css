@@ -1,0 +1,108 @@
+/* Estilo general del cuerpo */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo del encabezado */
+header {
+    text-align: center;
+}
+
+/* Estilo del título */
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo de los iconos sociales */
+.social-icons {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Estilo de cada icono social */
+.social-icon {
+    display: inline-block;
+    font-size: 60px;
+    color: #555;
+    text-align: center;
+    animation: bounce 1s infinite;
+}
+
+/* Estilo de los seguidores */
+.social-icon p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+/* Animación de rebote */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Efecto al pasar el mouse sobre los iconos */
+.social-icon:hover {
+    color: #000;
+}
+
+/* Estilo de la sección de videos */
+.videos-section {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap; /* Permite que los videos se alineen en columnas en pantallas pequeñas */
+    justify-content: center;
+}
+
+/* Estilo de cada video */
+.video {
+    text-align: center;
+}
+
+/* Estilo del iframe */
+video iframe {
+    width: 300px;
+    height: 400px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Media Queries para hacer la página responsiva */
+
+/* Para pantallas pequeñas, de hasta 600px */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 36px; /* Reducimos el tamaño del título */
+    }
+
+    .social-icon {
+        font-size: 40px; /* Reducimos el tamaño de los iconos */
+    }
+
+    .videos-section {
+        flex-direction: column; /* Apilamos los videos verticalmente */
+        gap: 20px; /* Reducimos el espacio entre los videos */
+    }
+
+    video iframe {
+        width: 90vw; /* Ajustamos el ancho del video al 90% del viewport */
+        height: auto; /* Dejamos que la altura se ajuste automáticamente */
+    }
+}
