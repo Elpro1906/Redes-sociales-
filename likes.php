@@ -10,10 +10,17 @@ if (!file_exists($likeFile)) {
 // Leer el número actual de likes desde el archivo
 $likes = (int)file_get_contents($likeFile);
 
-// Si la solicitud es de tipo POST, incrementamos los likes
+// Manejar la solicitud POST para agregar o quitar likes
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $likes++;
-    file_put_contents($likeFile, $likes); // Guardar el nuevo número de likes en el archivo
+    $data = json_decode(file_get_contents('php://input'), true);
+    if ($data['action'] === 'add') {
+        $likes++; // Agregar like
+    } elseif ($data['action'] === 'remove') {
+        $likes--; // Quitar like
+        if ($likes < 0) $likes = 0; // Evitar que los likes sean negativos
+    }
+    // Guardar el nuevo número de likes en el archivo
+    file_put_contents($likeFile, $likes);
 }
 
 // Devolver el número de likes como JSON
