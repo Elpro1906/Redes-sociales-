@@ -10,6 +10,19 @@
 <body>
     <header>
         <h1>Rey</h1>
+
+        <!-- Texto y botón de Like centrados debajo del título -->
+        <div class="like-section">
+            <p>Dale like a la página</p>
+            <div class="like-button-container">
+                <button id="likeButton" class="like-button">
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
+                <span id="likeCount">0</span> <!-- Contador de likes -->
+            </div>
+        </div>
+
+        <!-- Iconos sociales con número de seguidores -->
         <div class="social-icons">
             <a href="https://www.tiktok.com/@19rey10?_t=8q8hZAxCXTi&_r=1" target="_blank" class="social-icon tik">
                 <i class="fab fa-tiktok"></i>
@@ -37,9 +50,10 @@
             </a>
         </div>
     </header>
-    
+
     <main>
         <section class="videos-section">
+            <!-- Videos populares de TikTok -->
             <div class="video">
                 <h2>Video Popular 1</h2>
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@19rey10/video/7397215928678698245" data-video-id="7397215928678698245" style="max-width: 605px; min-width: 325px;" >
@@ -56,5 +70,7 @@
             </div>
         </section>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
