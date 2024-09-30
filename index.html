@@ -11,18 +11,17 @@
     <header>
         <h1>Rey</h1>
 
-        <!-- Texto y botón de Like centrados debajo del título -->
+        <!-- Sección de "Dale like a la página" -->
         <div class="like-section">
             <p>Dale like a la página</p>
             <div class="like-button-container">
-                <button id="likeButton" class="like-button">
+                <button class="like-button" id="likeButton">
                     <i class="fas fa-thumbs-up"></i>
                 </button>
-                <span id="likeCount">0</span> <!-- Contador de likes -->
+                <span id="likeCount">0</span> Likes
             </div>
         </div>
 
-        <!-- Iconos sociales con número de seguidores -->
         <div class="social-icons">
             <a href="https://www.tiktok.com/@19rey10?_t=8q8hZAxCXTi&_r=1" target="_blank" class="social-icon tik">
                 <i class="fab fa-tiktok"></i>
@@ -50,20 +49,19 @@
             </a>
         </div>
     </header>
-
+    
     <main>
         <section class="videos-section">
-            <!-- Videos populares de TikTok -->
             <div class="video">
                 <h2>Video Popular 1</h2>
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@19rey10/video/7397215928678698245" data-video-id="7397215928678698245" style="max-width: 605px; min-width: 325px;" >
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@19rey10/video/7397215928678698245" data-video-id="7397215928678698245" style="max-width: 605px; min-width: 325px;">
                     <section> <a target="_blank" title="@19rey10" href="https://www.tiktok.com/@19rey10"> @19rey10 </a> </section>
                 </blockquote> 
                 <script async src="https://www.tiktok.com/embed.js"></script>
             </div>
             <div class="video">
                 <h2>Video Popular 2</h2>
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@19rey10/video/7396384479847337222" data-video-id="7396384479847337222" style="max-width: 605px; min-width: 325px;" >
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@19rey10/video/7396384479847337222" data-video-id="7396384479847337222" style="max-width: 605px; min-width: 325px;">
                     <section> <a target="_blank" title="@19rey10" href="https://www.tiktok.com/@19rey10"> @19rey10 </a> </section>
                 </blockquote> 
                 <script async src="https://www.tiktok.com/embed.js"></script>
@@ -71,6 +69,39 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeButton = document.getElementById('likeButton');
+            const likeCountElement = document.getElementById('likeCount');
+
+            // Cargar el número de likes desde el servidor
+            function loadLikes() {
+                fetch('likes.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        likeCountElement.textContent = data.likes;
+                    });
+            }
+
+            // Inicialmente, cargar los likes
+            loadLikes();
+
+            // Evento de click en el botón de like
+            likeButton.addEventListener('click', function() {
+                // Enviar la solicitud al servidor para incrementar el contador
+                fetch('likes.php', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar el número de likes en la página
+                    likeCountElement.textContent = data.likes;
+                });
+            });
+
+            // Actualizar el número de likes automáticamente cada 5 segundos
+            setInterval(loadLikes, 5000); // Cada 5 segundos
+        });
+    </script>
 </body>
 </html>
