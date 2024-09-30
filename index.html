@@ -73,8 +73,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const likeButton = document.getElementById('likeButton');
             const likeCountElement = document.getElementById('likeCount');
+            let liked = false; // Variable para rastrear si el usuario ya ha dado like
 
-            // Cargar el número de likes desde el servidor
+             // Cargar el número de likes desde el servidor
             function loadLikes() {
                 fetch('likes.php')
                     .then(response => response.json())
@@ -88,16 +89,32 @@
 
             // Evento de click en el botón de like
             likeButton.addEventListener('click', function() {
-                // Enviar la solicitud al servidor para incrementar el contador
+                if (!liked) {
+                    // Si no ha dado like, incrementar el contador
+                    liked = true;
+                    likeButton.classList.add('liked'); // Cambiar el color del botón
+                    updateLikes('add');
+                } else {
+                    // Si ya ha dado like, quitarlo
+                    liked = false;
+                    likeButton.classList.remove('liked'); // Volver al color original
+                    updateLikes('remove');
+                }
+            });
+
+            // Función para actualizar los likes en el servidor
+            function updateLikes(action) {
                 fetch('likes.php', {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: action }) // Enviar la acción (add/remove)
                 })
                 .then(response => response.json())
                 .then(data => {
                     // Actualizar el número de likes en la página
                     likeCountElement.textContent = data.likes;
                 });
-            });
+            }
 
             // Actualizar el número de likes automáticamente cada 5 segundos
             setInterval(loadLikes, 5000); // Cada 5 segundos
